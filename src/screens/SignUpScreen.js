@@ -76,7 +76,7 @@ export default SignUpScreen = ({navigation}) => {
                 <Text small center>
                     Already have an account?{" "}
                     <Text bold color="#8022D9">
-                        Sign In
+                        Sign In.
                     </Text>
                 </Text>
             </SignUp>
