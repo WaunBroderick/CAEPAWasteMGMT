@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default HomeScreen = () => {
+export default PostScreen = () => {
     return (
        <View style={style.container}>
-           <Text>Home Screen</Text>
+           <Text>Post Screen</Text>
        </View> 
     )
 }

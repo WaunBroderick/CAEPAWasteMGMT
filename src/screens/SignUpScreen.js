@@ -5,13 +5,34 @@ import styled from "styled-components"
 
 // Custom components
 import Text from "../components/Text"
+import { FirebaseContext } from "../context/FirebaseContext";
 
+import { UserContext } from "../context/UserContext"
 
 export default SignUpScreen = ({navigation}) => {
     const [ username, setUsername ] = useState();
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
     const [ loading, setLoading ] = useState(false);
+    const firebase = useContext(FirebaseContext)
+    const [_, setUser] = useContext(UserContext)
+
+    const signUp = async() => {
+        setLoading(true)
+
+        const user = {username, email, password}
+
+        try {
+            const createUser = await firebase.createUser(user)
+
+            setUser({...createUser, isLoggedIn: true});
+        } catch (error) {
+            console.log("Error @signUp: ",  error);
+        }finally{
+            setLoading(false);
+        }
+
+    }
 
     return (
         <Container>
@@ -29,7 +50,7 @@ export default SignUpScreen = ({navigation}) => {
                     autoCapitalize="none" 
                     autoCorrect={false} 
                     autoFocus={true} 
-                    onChangeText={username => setEmail(username.trim())}
+                    onChangeText={username => setUsername(username.trim())}
                     value={username}
                     />
                 </AuthContainer>
@@ -61,7 +82,7 @@ export default SignUpScreen = ({navigation}) => {
 
             </Auth>
 
-            <SignUpContainer disable={loading}>
+            <SignUpContainer onPress={signUp} disable={loading}>
                 {loading ? (
                     <Loading />
                 ) : (
